@@ -1,0 +1,13 @@
+{
+    "name": "codevia/app-configurator",
+    "description": "Configure Codevia backend apps.",
+    "license": "MIT",
+    "require": {
+        "symfony/console": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codevia\\AppConfigurator\\": "src/"
+        }
+    }
+}
