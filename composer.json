@@ -9,5 +9,6 @@
         "psr-4": {
             "Codevia\\AppConfigurator\\": "src/"
         }
-    }
+    },
+    "bin": ["index.php"]
 }
