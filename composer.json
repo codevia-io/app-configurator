@@ -10,5 +10,5 @@
             "Codevia\\AppConfigurator\\": "src/"
         }
     },
-    "bin": ["index.php"]
+    "bin": ["bin/app-configurator"]
 }
