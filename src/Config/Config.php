@@ -22,8 +22,8 @@ class Config implements JsonSerializable, AskForDataInterface
     {
         $data = json_decode($data, true);
         if (isset($data['applications'])) {
-            foreach ($data['applications'] as $application) {
-                $this->applications[] = new Application($application);
+            foreach ($data['applications'] as $key => $application) {
+                $this->applications[$key] = new Application($application);
             }
         }
     }
@@ -64,7 +64,7 @@ class Config implements JsonSerializable, AskForDataInterface
                     ),
                 );
                 $application->askForData($input, $output, $questionHelper);
-                $this->applications[] = $application;
+                $this->applications[$application->getName()] = $application;
             }
 
             // Edit an existing application
@@ -75,13 +75,15 @@ class Config implements JsonSerializable, AskForDataInterface
                     $output,
                     $questionHelper,
                     'Which application do you want to edit?',
-                    array_map(function ($application) {
+                    array_map(function (Application $application) {
                         return $application->getName();
                     }, $this->applications),
                 );
 
                 $application = $this->applications[$app];
+                unset($this->applications[$app]);
                 $application->askForData($input, $output, $questionHelper);
+                $this->applications[$application->getName()] = $application;
             }
 
             // Remove an existing application
