@@ -134,4 +134,23 @@ class Database implements AskForDataInterface, JsonSerializable
             }
         } while ($action !== 99);
     }
+
+    /**
+     * Get the all configured connections
+     * @return DBMSInterface[]
+     */
+    public function getConnections(): array
+    {
+        return $this->dbms;
+    }
+
+    /**
+     * Get the connection with the given alias
+     * @param string $alias
+     * @return null|DBMSInterface
+     */
+    public function getConnection(string $alias): ?DBMSInterface
+    {
+        return $this->dbms[$alias] ?? null;
+    }
 }
