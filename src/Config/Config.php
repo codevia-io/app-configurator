@@ -110,7 +110,7 @@ class Config implements JsonSerializable, AskForDataInterface
                 if (count($this->applications) === 0) {
                     $output->writeln('No applications found.');
                 }
-                
+
                 foreach ($this->applications as $application) {
                     $output->writeln('  - Application <info>' . $application->getName() . '</info>');
                 }
@@ -123,5 +123,24 @@ class Config implements JsonSerializable, AskForDataInterface
         return [
             'applications' => $this->applications,
         ];
+    }
+
+    /**
+     * Return application list
+     * @return Application[] The application list
+     */
+    public function getApplications(): array
+    {
+        return $this->applications;
+    }
+
+    /**
+     * Return application by name
+     * @param string $name 
+     * @return null|Application 
+     */
+    public function getApplication(string $name): ?Application
+    {
+        return $this->applications[$name] ?? null;
     }
 }
