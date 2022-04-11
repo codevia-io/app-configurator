@@ -17,9 +17,10 @@ trait AskForHiddenValueTrait
         OutputInterface $output,
         QuestionHelper $questionHelper,
         string $questionText,
-        string $defaultValue = null
+        string $default = null
     ): string {
-        $question = new Question($questionText . ' ', $defaultValue);
+        $suffix = $default ? " [<comment>****</comment>] " : ' ';
+        $question = new Question($questionText . $suffix, $default);
         $question->setHidden(true);
         $question->setHiddenFallback(false);
 

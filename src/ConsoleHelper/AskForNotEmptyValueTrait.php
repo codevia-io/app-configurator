@@ -24,8 +24,10 @@ trait AskForNotEmptyValueTrait
         OutputInterface $output,
         QuestionHelper $helper,
         string $question,
+        mixed $default = null
     ): string {
-        $question = new Question($question . ' ');
+        $suffix = $default ? " [<comment>$default</comment>] " : ' ';
+        $question = new Question($question . $suffix, $default);
         $response = (string) $helper->ask($input, $output, $question);
 
         // If the response is empty, ask again.
