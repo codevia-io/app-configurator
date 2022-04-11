@@ -105,6 +105,26 @@ class Database implements AskForDataInterface, JsonSerializable
             }
         }
 
+        // Edit a connection
+        if ($action === 3) {
+            $connections = array_keys($this->dbms);
+            $aliasIndex = $this->askForChoice(
+                $input,
+                $output,
+                $questionHelper,
+                'Which connection do you want to edit?',
+                $connections,
+            );
+            $alias = $connections[$aliasIndex];
+
+            /** @var DBMSInterface */
+            $dbms = $this->dbms[$alias];
+            unset($this->dbms[$alias]);
+            
+            $dbms->askForData($input, $output, $questionHelper);
+            $this->dbms[$dbms->getAlias()] = $dbms;
+        }
+
         if ($action === 4) {
             foreach ($this->dbms as $dbms) {
                 $output->writeln(' - ' . $dbms->getAlias());
