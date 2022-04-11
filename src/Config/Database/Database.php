@@ -45,90 +45,93 @@ class Database implements AskForDataInterface, JsonSerializable
         $action = null;
 
         do {
-            $action = $this->askForChoice(
-                $input,
-                $output,
-                $questionHelper,
-                'What do you want to do?',
-                [
-                    1 => 'Add a new connection',
-                    2 => 'Remove a connection',
-                    3 => 'Edit a connection',
-                    4 => 'Show all connections',
-                    99 => 'Exit',
-                ],
-            );
-        } while ($action === null);
+            do {
+                $action = $this->askForChoice(
+                    $input,
+                    $output,
+                    $questionHelper,
+                    'What do you want to do?',
+                    [
+                        1 => 'Add a new connection',
+                        2 => 'Edit a connection',
+                        3 => 'Remove a connection',
+                        4 => 'Show all connections',
+                        99 => 'Exit',
+                    ],
+                );
+            } while ($action === null);
 
-        // Add a new connection
-        if ($action === 1) {
-            $type = $this->askForChoice(
-                $input,
-                $output,
-                $questionHelper,
-                'What type of database do you want to add?',
-                [
-                    1 => 'MySQL',
-                    2 => 'SQLite',
-                ],
-            );
+            // Add a new connection
+            if ($action === 1) {
+                $type = $this->askForChoice(
+                    $input,
+                    $output,
+                    $questionHelper,
+                    'What type of database do you want to add?',
+                    [
+                        1 => 'MySQL',
+                        2 => 'SQLite',
+                    ],
+                );
 
-            /** @var DBMSInterface */
-            $dbms = match ($type) {
-                1 => new MySQL(),
-                2 => new SQLite(),
-            };
+                /** @var DBMSInterface */
+                $dbms = match ($type) {
+                    1 => new MySQL(),
+                    2 => new SQLite(),
+                };
 
-            $dbms->askForData($input, $output, $questionHelper);
-            $this->dbms[$dbms->getAlias()] = $dbms;
-        }
+                $dbms->askForData($input, $output, $questionHelper);
+                $this->dbms[$dbms->getAlias()] = $dbms;
+            }
 
-        // Remove a connection
-        if ($action === 2) {
-            $alias = $this->askForChoice(
-                $input,
-                $output,
-                $questionHelper,
-                'Which connection do you want to remove?',
-                array_keys($this->dbms),
-            );
+            // Edit a connection
+            if ($action === 2) {
+                $connections = array_keys($this->dbms);
+                $aliasIndex = $this->askForChoice(
+                    $input,
+                    $output,
+                    $questionHelper,
+                    'Which connection do you want to edit?',
+                    $connections,
+                );
+                $alias = $connections[$aliasIndex];
 
-            $confirm = $this->askForConfirmation(
-                $input,
-                $output,
-                $questionHelper,
-                sprintf('Are you sure you want to remove the connection "%s"?', $alias),
-            );
-
-            if ($confirm) {
+                /** @var DBMSInterface */
+                $dbms = $this->dbms[$alias];
                 unset($this->dbms[$alias]);
+                
+                $dbms->askForData($input, $output, $questionHelper);
+                $this->dbms[$dbms->getAlias()] = $dbms;
             }
-        }
 
-        // Edit a connection
-        if ($action === 3) {
-            $connections = array_keys($this->dbms);
-            $aliasIndex = $this->askForChoice(
-                $input,
-                $output,
-                $questionHelper,
-                'Which connection do you want to edit?',
-                $connections,
-            );
-            $alias = $connections[$aliasIndex];
+            // Remove a connection
+            if ($action === 3) {
+                $alias = $this->askForChoice(
+                    $input,
+                    $output,
+                    $questionHelper,
+                    'Which connection do you want to remove?',
+                    array_keys($this->dbms),
+                );
 
-            /** @var DBMSInterface */
-            $dbms = $this->dbms[$alias];
-            unset($this->dbms[$alias]);
-            
-            $dbms->askForData($input, $output, $questionHelper);
-            $this->dbms[$dbms->getAlias()] = $dbms;
-        }
+                $confirm = $this->askForConfirmation(
+                    $input,
+                    $output,
+                    $questionHelper,
+                    sprintf('Are you sure you want to remove the connection "%s"?', $alias),
+                );
 
-        if ($action === 4) {
-            foreach ($this->dbms as $dbms) {
-                $output->writeln(' - ' . $dbms->getAlias());
+                if ($confirm) {
+                    unset($this->dbms[$alias]);
+                }
             }
-        }
+
+            // List connections
+            if ($action === 4) {
+                foreach ($this->dbms as $dbms) {
+                    $output->writeln('  - Connection <info>' . $dbms->getAlias() . '</info>');
+                }
+            }
+        } while ($action !== 99);
     }
 }

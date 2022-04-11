@@ -82,6 +82,7 @@ class Config implements JsonSerializable, AskForDataInterface
 
                 $application = $this->applications[$app];
                 unset($this->applications[$app]);
+
                 $application->askForData($input, $output, $questionHelper);
                 $this->applications[$application->getName()] = $application;
             }
@@ -105,8 +106,13 @@ class Config implements JsonSerializable, AskForDataInterface
             // List existing applications
             if ($action === 4) {
                 $output->writeln('Listing existing applications...');
+
+                if (count($this->applications) === 0) {
+                    $output->writeln('No applications found.');
+                }
+                
                 foreach ($this->applications as $application) {
-                    $output->writeln(' - ' . $application->getName());
+                    $output->writeln('  - Application <info>' . $application->getName() . '</info>');
                 }
             }
         } while ($action !== 99);

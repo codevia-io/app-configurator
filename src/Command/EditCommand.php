@@ -51,6 +51,7 @@ class EditCommand extends Command
         $handler = fopen($theoricalPath, 'w');
         fwrite($handler, json_encode($config, JSON_PRETTY_PRINT));
         fclose($handler);
+        $output->writeln('Configuration file saved at ' . $theoricalPath);
 
         return Command::SUCCESS;
     }
