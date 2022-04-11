@@ -57,6 +57,7 @@ class Application implements AskForDataInterface, JsonSerializable
                     $output,
                     $questionHelper,
                     'What is the new name of the application?',
+                    $this->getName(),
                 ));
             }
 
