@@ -44,7 +44,7 @@ class Application implements AskForDataInterface, JsonSerializable
                     'What do you want to do?',
                     [
                         1 => 'Edit application name',
-                        2 => 'Edit database connections',
+                        2 => 'Edit database configuration',
                         99 => 'Exit',
                     ],
                 );
