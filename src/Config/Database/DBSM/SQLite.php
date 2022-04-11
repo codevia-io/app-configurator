@@ -33,12 +33,14 @@ class SQLite implements AskForDataInterface, DBMSInterface, JsonSerializable
             $output,
             $questionHelper,
             'What is the path to the SQLite database file you wish to use?',
+            $this->database,
         );
         $this->alias = $this->askForNotEmptyValue(
             $input,
             $output,
             $questionHelper,
             'What is the alias you wish to use for this database?',
+            $this->alias,
         );
     }
 

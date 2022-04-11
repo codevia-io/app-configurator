@@ -41,30 +41,35 @@ class MySQL implements AskForDataInterface, DBMSInterface, JsonSerializable
             $output,
             $questionHelper,
             'What is the hostname of the MySQL server?',
+            $this->host,
         );
         $this->user = $this->askForNotEmptyValue(
             $input,
             $output,
             $questionHelper,
             'What is the username to connect to the MySQL server?',
+            $this->user,
         );
         $this->password = $this->askForHiddenValue(
             $input,
             $output,
             $questionHelper,
             'What is the password to connect to the MySQL server?',
+            $this->password,
         );
         $this->database = $this->askForNotEmptyValue(
             $input,
             $output,
             $questionHelper,
             'What is the name of the database to use?',
+            $this->database,
         );
         $this->alias = $this->askForNotEmptyValue(
             $input,
             $output,
             $questionHelper,
             'What is the alias you want to give to this connection?',
+            $this->alias,
         );
     }
 
