@@ -77,4 +77,13 @@ class Application implements AskForDataInterface, JsonSerializable
         $this->name = $name;
         return $this;
     }
+
+    /**
+     * Get the database storing all connections
+     * @return Database 
+     */
+    public function getDatabase(): Database
+    {
+        return $this->database;
+    }
 }
