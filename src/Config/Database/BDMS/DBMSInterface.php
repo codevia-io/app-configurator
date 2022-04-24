@@ -1,6 +1,6 @@
 <?php
 
-namespace Codevia\AppConfigurator\Config\Database\DBSM;
+namespace Codevia\AppConfigurator\Config\Database\DBMS;
 
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
