@@ -1,6 +1,6 @@
 <?php
 
-namespace Codevia\AppConfigurator\Config\Database\DBSM;
+namespace Codevia\AppConfigurator\Config\Database\DBMS;
 
 use Codevia\AppConfigurator\ConsoleHelper\AskForDataInterface;
 use Codevia\AppConfigurator\ConsoleHelper\AskForHiddenValueTrait;

@@ -2,9 +2,9 @@
 
 namespace Codevia\AppConfigurator\Config\Database;
 
-use Codevia\AppConfigurator\Config\Database\DBSM\DBMSInterface;
-use Codevia\AppConfigurator\Config\Database\DBSM\MySQL;
-use Codevia\AppConfigurator\Config\Database\DBSM\SQLite;
+use Codevia\AppConfigurator\Config\Database\DBMS\DBMSInterface;
+use Codevia\AppConfigurator\Config\Database\DBMS\MySQL;
+use Codevia\AppConfigurator\Config\Database\DBMS\SQLite;
 use Codevia\AppConfigurator\ConsoleHelper\AskForChoiceTrait;
 use Codevia\AppConfigurator\ConsoleHelper\AskForConfirmationTrait;
 use Codevia\AppConfigurator\ConsoleHelper\AskForDataInterface;
