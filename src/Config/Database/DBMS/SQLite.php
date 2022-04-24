@@ -58,6 +58,17 @@ class SQLite implements AskForDataInterface, DBMSInterface, JsonSerializable
         return "sqlite:$this->database";
     }
 
+    public function getDatabase(): string
+    {
+        return $this->database;
+    }
+
+    public function setDatabase(string $database): self
+    {
+        $this->database = $database;
+        return $this;
+    }
+
     public function getAlias(): string
     {
         return $this->alias;

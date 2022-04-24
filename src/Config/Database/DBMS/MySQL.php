@@ -90,6 +90,28 @@ class MySQL implements AskForDataInterface, DBMSInterface, JsonSerializable
         return "mysql:host={$this->host};dbname={$this->database}";
     }
 
+    public function getHost(): string
+    {
+        return $this->host;
+    }
+
+    public function setHost(string $host): self
+    {
+        $this->host = $host;
+        return $this;
+    }
+
+    public function getDatabase(): string
+    {
+        return $this->database;
+    }
+
+    public function setDatabase(string $database): self
+    {
+        $this->database = $database;
+        return $this;
+    }
+
     public function getUser(): string
     {
         return $this->user;
